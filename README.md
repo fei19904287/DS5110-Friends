@@ -7,3 +7,7 @@
 ## Progress tracker
 
 - https://docs.google.com/document/d/1mZ63DvfY1W3fAJUTMA_Cvya-5qxbBHGIud1fwZ3q_Ns/edit?usp=sharing
+
+## Notebook link for df manipulation
+
+- https://colab.research.google.com/drive/1a1A2VpH_VSjmWWcZ3PB7AsZ_lRc4FLEI?usp=sharing
