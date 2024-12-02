@@ -20,3 +20,5 @@
 
 - ## pip install streamlit
 - ## streamlit run friends.py
+# Deployment
+- https://ds5110-friends-8spdyp8jm6nogvixenwtym.streamlit.app/
