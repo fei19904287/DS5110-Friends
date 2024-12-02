@@ -13,4 +13,10 @@
 - https://colab.research.google.com/drive/1a1A2VpH_VSjmWWcZ3PB7AsZ_lRc4FLEI?usp=sharing
 
 ## Sentiment analysis (ongoing)
+
 - https://colab.research.google.com/drive/18UiN87bHidMazt2jMc8YzIMRTsYP-Hq9?usp=drive_link
+
+# friends.py readme guide
+
+- ## pip install streamlit
+- ## streamlit run friends.py
