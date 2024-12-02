@@ -204,6 +204,17 @@ if st.button("Show common episodes of stars and votes"):
     st.write("Common Episodes in Top 8 by Votes and Stars:")
     st.write(common_episodes_info[['Episode_Title', 'Votes', 'Stars', 'Season', 'Episode_Number']])
 
+# Filter episodes with guest stars
+episodes_celebrities_df = all_episodes_info[all_episodes_info['Guest_Star_Name'] != 'Non_Exist']
+
+if st.button("Episodes With Guest Stars"):
+    # Display dataset
+    st.dataframe(episodes_celebrities_df)
+    st.scatter_chart(data=episodes_celebrities_df, x="Episode_Index", y="Votes",color=None)
+
+
+
+
 
 
 
