@@ -4,6 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 
+st.sidebar.success("Select a demo above.")
 
 image_url = "https://miro.medium.com/v2/resize:fit:1400/0*MHCh12pKc4A1aif-"
 # Set up the background image using custom CSS
@@ -68,7 +69,7 @@ all_episodes_info['Audience_Cheering'] = all_episodes_info['Audience_Cheering'].
 # print("Missing values after filling in episodes_only_with_celebrities:")
 # print(episodes_celebrities_df.isnull().sum())
 
-if st.button(":red[Friends All Episodes Info]"):
+if st.sidebar.button(":red[Friends All Episodes Info]"):
     st.header(":red[Friends All Episodes Info]",divider=True)
     st.write(all_episodes_info)
 
@@ -80,7 +81,7 @@ if st.button(":red[Friends All Episodes Info]"):
 
 # based on votes , find the top 8 episodes, display the episode number and season number , and episode title , display using a
 # graph
-if st.button(":green[Top 8 episodes based on Votes]"):
+if st.sidebar.button(":green[Top 8 episodes based on Votes]"):
     st.header(":green[Top 8 episodes based on Votes]", divider=True)
     # Sort the episodes based on the number of votes in descending order
     top_8_episodes_votes = all_episodes_info.sort_values(by='Votes', ascending=False).head(8)
@@ -116,7 +117,7 @@ if st.button(":green[Top 8 episodes based on Votes]"):
 
 
 # Button to display the Top 8 Episodes by Stars plot
-if st.button("Show Top 8 Episodes by Stars"):
+if st.sidebar.button("Top 8 Episodes by Stars"):
     st.header("Top 8 episodes based on Stars", divider=True)
     # Step 1: Sort the episodes based on the star ratings in descending order
     top_8_episodes_Stars = all_episodes_info.sort_values(by='Stars', ascending=False).head(8)
@@ -146,7 +147,7 @@ if st.button("Show Top 8 Episodes by Stars"):
     st.pyplot(fig)
 
     # Button to display the "Stars Trend" scatter plot
-if st.button("Show Stars Trend Scatter Plot"):
+if st.sidebar.button("Stars Trend Scatter Plot"):
     st.header("Stars Trend Scatter Plot", divider=True)
     # Create the scatter plot
     fig, ax = plt.subplots(figsize=(10, 6))  # Set figure size
@@ -161,7 +162,7 @@ if st.button("Show Stars Trend Scatter Plot"):
     st.pyplot(fig)
 
 # Button to display the "Average Stars by Season" bar plot
-if st.button("Show Average Stars by Season"):
+if st.sidebar.button("Show Average Stars by Season"):
     st.header("Average Stars by Season", divider=True)
     # Calculate the total Stars by Season
     season_totals = all_episodes_info.groupby('Season')['Stars'].mean().reset_index()
@@ -193,7 +194,7 @@ votes_episodes = set(top_8_episodes_votes['Episode_Title'])
 top_8_episodes_stars = all_episodes_info.sort_values(by='Stars', ascending=False).head(8)
 stars_episodes = set(top_8_episodes_stars['Episode_Title'])
 
-if st.button("Show common episodes of stars and votes"):
+if st.sidebar.button("Common episodes of stars and votes"):
     # Find common episodes
     common_episodes = votes_episodes.intersection(stars_episodes)
 
@@ -207,7 +208,7 @@ if st.button("Show common episodes of stars and votes"):
 # Filter episodes with guest stars
 episodes_celebrities_df = all_episodes_info[all_episodes_info['Guest_Star_Name'] != 'Non_Exist']
 
-if st.button("Episodes With Guest Stars"):
+if st.sidebar.button("Episodes With Guest Stars"):
     # Display dataset
     st.dataframe(episodes_celebrities_df)
     st.scatter_chart(data=episodes_celebrities_df, x="Episode_Index", y="Votes",color=None)
