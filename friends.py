@@ -209,7 +209,9 @@ if st.sidebar.button(":red[Common episodes of stars and votes]"):
 
 # Filter episodes with guest stars
 episodes_celebrities_df = all_episodes_info[all_episodes_info['Guest_Star_Name'] != 'Non_Exist']
-
+if st.sidebar.button(":red[Episodes With Guest Star Info]"):
+    #st.header(":red[Friends All Episodes Info]",divider=True)
+    st.write(episodes_celebrities_df)
 
 # Assuming `episodes_celebrities_df` is already defined
 # Scatter plot for Votes
