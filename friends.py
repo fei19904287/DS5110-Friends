@@ -31,12 +31,6 @@ st.title(":green[_The One with the Analysis_]")
 df1 = pd.read_csv("friends_episodes_v3.csv")
 df2 = pd.read_csv("guest_stars_info.csv")
 
-# concat the df together
-
-# DF_ALL = pd.concat([df1,df2])
-# print(DF_ALL.head(2))
-
-# Join the data frames to one
 
 all_episodes_info = pd.merge(df1, df2, on=['Season','Episode_Number'], how='outer')
 all_episodes_info['Episode_Index'] = range(1, len(all_episodes_info) + 1)
@@ -44,30 +38,9 @@ all_episodes_info['Episode_Index'] = range(1, len(all_episodes_info) + 1)
 episodes_celebrities_df = all_episodes_info[all_episodes_info['Guest_Star_Name'].notna()]
 episodes_celebrities_cheering_df = episodes_celebrities_df[episodes_celebrities_df['Audience_Cheering'] == 'y']
 
-# # Merge episodes_only_with_celebrities with all_episodes_info to add the Episode_Index
-# print("before merging........")
-# print(len(episodes_celebrities_df))
-# #
-# print(episodes_celebrities_df.head(7))
-
-# #Tasks
-# # for data cleaning, check null value, also , if there is NaN, replace with reasonable values instead
-# # Check for missing values (NaN) in both DataFrames
-# print("Missing values in all_episodes_info:")
-# print(all_episodes_info.isnull().sum())
-
-
-# For other columns, you can decide based on your domain knowledge if you want to fill them with a specific value
 all_episodes_info['Guest_Star_Name'] = all_episodes_info['Guest_Star_Name'].fillna('Non_Exist')
 all_episodes_info['Audience_Cheering'] = all_episodes_info['Audience_Cheering'].fillna('n')
 
-
-# If you want to drop rows with missing values entirely (use cautiously)
-# episodes_only_with_celebrities.dropna(inplace=True)
-
-# Verify that missing values were filled
-# print("Missing values after filling in episodes_only_with_celebrities:")
-# print(episodes_celebrities_df.isnull().sum())
 
 if st.sidebar.button(":red[Friends All Episodes Info]"):
     #st.header(":red[Friends All Episodes Info]",divider=True)
@@ -81,11 +54,8 @@ if st.sidebar.button(":blue[All Episodes Votes]"):
 
     st.scatter_chart(data=chart_data, x="Episode_Index", y="Votes",color=None)
 
-# based on votes , find the top 8 episodes, display the episode number and season number , and episode title , display using a
-# graph
+# based on votes , find the top 8 episodes, display the episode number and season number , and episode title 
 if st.sidebar.button(":green[Top 8 episodes based on Votes]"):
-    #st.header(":green[Top 8 episodes based on Votes]", divider=True)
-    # Sort the episodes based on the number of votes in descending order
     top_8_episodes_votes = all_episodes_info.sort_values(by='Votes', ascending=False).head(8)
 
     top_8_episodes_votes_info = top_8_episodes_votes[['Episode_Index', 'Season', 'Episode_Number', 'Episode_Title', 'Votes']]
@@ -119,8 +89,7 @@ if st.sidebar.button(":green[Top 8 episodes based on Votes]"):
 
     # Button to display the "Stars Trend" scatter plot
 if st.sidebar.button(":red[Stars Trend Scatter Plot]"):
-    #st.header("Stars Trend Scatter Plot", divider=True)
-    # Create the scatter plot
+
     fig, ax = plt.subplots(figsize=(10, 6))  # Set figure size
     sns.scatterplot(data=all_episodes_info, x='Episode_Index', y='Stars', color='red', ax=ax)
     
@@ -133,14 +102,11 @@ if st.sidebar.button(":red[Stars Trend Scatter Plot]"):
     st.pyplot(fig)
 # Button to display the Top 8 Episodes by Stars plot
 if st.sidebar.button(":blue[Top 8 Episodes by Stars]"):
-    #st.header("Top 8 episodes based on Stars", divider=True)
-    # Step 1: Sort the episodes based on the star ratings in descending order
+
     top_8_episodes_Stars = all_episodes_info.sort_values(by='Stars', ascending=False).head(8)
 
-    # Step 2: Create a new DataFrame with the relevant columns
     top_8_episodes_info_Stars = top_8_episodes_Stars[['Episode_Index', 'Season', 'Episode_Number', 'Episode_Title', 'Stars']]
 
-    # Step 3: Create the plot
     fig, ax = plt.subplots(figsize=(12, 6))  # Increase the figure size for better visualization
 
     # Apply a color palette based on the 'Stars' rating
@@ -165,11 +131,9 @@ if st.sidebar.button(":blue[Top 8 Episodes by Stars]"):
 
 # Button to display the "Average Stars by Season" bar plot
 if st.sidebar.button(":orange[Show Average Stars by Season]"):
-    #st.header("Average Stars by Season", divider=True)
-    # Calculate the total Stars by Season
+
     season_totals = all_episodes_info.groupby('Season')['Stars'].mean().reset_index()
 
-    # Create the bar plot
     fig, ax = plt.subplots(figsize=(10, 6))  # Set figure size
     sns.barplot(data=season_totals, x='Season', y='Stars', hue='Season', dodge=False, ax=ax, palette='viridis')
 
@@ -182,10 +146,7 @@ if st.sidebar.button(":orange[Show Average Stars by Season]"):
     ax.set_xlabel("Season", fontsize=14)
     ax.set_ylabel("Average Stars", fontsize=14)
 
-    # Remove legend (optional, since the hue is the same as the x-axis)
     ax.legend_.remove()
-
-    # Display the plot in Streamlit
     st.pyplot(fig)
 
 # Top 8 episodes by votes
@@ -210,11 +171,8 @@ if st.sidebar.button(":red[Common episodes of stars and votes]"):
 # Filter episodes with guest stars
 episodes_celebrities_df = all_episodes_info[all_episodes_info['Guest_Star_Name'] != 'Non_Exist']
 if st.sidebar.button(":red[Episodes With Guest Star Info]"):
-    #st.header(":red[Friends All Episodes Info]",divider=True)
     st.write(episodes_celebrities_df)
 
-# Assuming `episodes_celebrities_df` is already defined
-# Scatter plot for Votes
 if st.sidebar.button(":blue[Episodes With Guest Star Votes Trend]"):
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.scatterplot(data=episodes_celebrities_df, x='Episode_Index', y='Votes', color='blue', ax=ax)
@@ -222,7 +180,6 @@ if st.sidebar.button(":blue[Episodes With Guest Star Votes Trend]"):
     ax.set_xlabel("Episode_Index", fontsize=14)
     ax.set_ylabel("Votes", fontsize=14)
 
-    # Display the plot in Streamlit
     st.pyplot(fig)
 
     # Sort the DataFrame by Votes in descending order
@@ -234,7 +191,6 @@ if st.sidebar.button(":blue[Episodes With Guest Star Votes Trend]"):
 
     st.video("https://www.youtube.com/watch?v=AqzJ_jbVUJw&ab_channel=JoeyFriendsClips")
     st.video("https://www.youtube.com/watch?v=xHLaISBRmdI&t=6s&ab_channel=FriendsOriginals")
-
 
 
 # Scatter plot for Votes with Guest Star and Audience Cheering
@@ -266,7 +222,7 @@ if st.sidebar.button(":green[Audience Cheering Votes Trend]"):
 
 if st.sidebar.button(":blue[Scripts Analysis]"):
 
-    # Provide the image path or URL
+    # Provide the image path 
     image_path = "output.png" 
     image_path2 = "output2.png" 
     image_path3 = "output3.png" 
